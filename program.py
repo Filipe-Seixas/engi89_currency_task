@@ -9,10 +9,14 @@ while True:
     # If user inputs 'all' run the show_all func
     if desired_rate.upper() == "ALL":
         print(currency.show_all_rates())
+    # If user inputs 'api' run the func that connects to currency API
+    elif desired_rate.upper() == "API":
+        print(currency.rates_api())
     # If user inputs 'help' give them some options
     elif desired_rate.upper() == "HELP":
         print("You can type a currency code you know \n"
               "OR type 'all' to show all currencies exchange rates \n"
+              "OR type 'api' to show currency data from a live API \n"
               "OR type 'exit' to close program.")
     elif desired_rate.upper() == "EXIT":
         break

@@ -2,9 +2,11 @@
 
 <h2>exchange_rate_parser.py</h2>
 
-- In this file we have two functions, one that shows all available rates in the JSON file, and another to show only the currency code that the user has inputted.
+- In this file we have three functions, one that shows all available rates in the JSON file, another to show only the currency code that the user has inputted.
+- The third function makes use of a live API to get data regarding currency.
 ```python
 import json
+import requests
 
 
 # Create a class to show currency exchange rates
@@ -31,6 +33,25 @@ class ExchangeCurrency:
         else:
             return "Sorry we don't recognize that currency code."
         return "Thank you!"
+
+    # Function to get currency data from Fixer API
+    def rates_api(self):
+        # Call API
+        check_response = requests.get("http://data.fixer.io/api/latest?access_key=f1e83da1e71ebd3966749e7d2472fa68")
+        # If the response is successful, code 200
+        if check_response:
+            # Turn response to json format
+            json_response = check_response.json()
+            # Get dicts
+            base = json_response['base']
+            date = json_response['date']
+            currencies = json_response['rates']
+            # Return base, date, and all currencies from API
+            return f"Date: {date}\n" \
+                   f"Base: {base}\n" \
+                   f"Currencies: {currencies}"
+        else:
+            return "Sorry something went wrong..."
 ```
 <h2>program.py</h2>
 
@@ -48,10 +69,14 @@ while True:
     # If user inputs 'all' run the show_all func
     if desired_rate.upper() == "ALL":
         print(currency.show_all_rates())
+    # If user inputs 'api' run the func that connects to currency API
+    elif desired_rate.upper() == "API":
+        print(currency.rates_api())
     # If user inputs 'help' give them some options
     elif desired_rate.upper() == "HELP":
         print("You can type a currency code you know \n"
               "OR type 'all' to show all currencies exchange rates \n"
+              "OR type 'api' to show currency data from a live API \n"
               "OR type 'exit' to close program.")
     elif desired_rate.upper() == "EXIT":
         break

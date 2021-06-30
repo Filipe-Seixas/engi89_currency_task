@@ -1,4 +1,5 @@
 import json
+import requests
 
 
 # Create a class to show currency exchange rates
@@ -25,3 +26,22 @@ class ExchangeCurrency:
         else:
             return "Sorry we don't recognize that currency code."
         return "Thank you!"
+
+    # Function to get currency data from Fixer API
+    def rates_api(self):
+        # Call API
+        check_response = requests.get("http://data.fixer.io/api/latest?access_key=f1e83da1e71ebd3966749e7d2472fa68")
+        # If the response is successful, code 200
+        if check_response:
+            # Turn response to json format
+            json_response = check_response.json()
+            # Get dicts
+            base = json_response['base']
+            date = json_response['date']
+            currencies = json_response['rates']
+            # Return base, date, and all currencies from API
+            return f"Date: {date}\n" \
+                   f"Base: {base}\n" \
+                   f"Currencies: {currencies}"
+        else:
+            return "Sorry something went wrong..."
