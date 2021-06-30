@@ -1,6 +1,6 @@
 # Currency Task
 
-###exchange_rate_parser.py
+<h2>exchange_rate_parser.py</h2>
 
 - In this file we have two functions, one that shows all available rates in the JSON file, and another to show only the currency code that the user has inputted.
 ```python
@@ -32,10 +32,10 @@ class ExchangeCurrency:
             return "Sorry we don't recognize that currency code."
         return "Thank you!"
 ```
-###program.py
+<h2>program.py</h2>
 
 - This is where we run our program because we have built a package. 
-- Here we ask the user for their input to see which function we should run, there are also some options to make it more user friendly.
+- Here we ask the user for their input to see which function we should run, there are also some options to make it more user-friendly.
 ```python
 # Import class from .py file
 from app.exchange_rate_parser import ExchangeCurrency
